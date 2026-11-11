@@ -1,14 +1,36 @@
 <?php 
+	include('conexao.php');
+?>
 
-$host = "localhost";
-$usuario = "root";
-$senha = "";
-$banco = "cine";
+<link rel="stylesheet" href="style.css">
+<ul>
+	<li><a href="categorias.html">Categorias</a></li>
+	<li><a href="filmes.html">Filmes</a></li>
+</ul>
+<main id="categoria">
+	<form method="get">
+		<h2>Categorias</h2>
+		<input type="text" name="categoria" placeholder="Nome Categoria...">
+		<button name="salvar">Salvar</button>
+	</form>
+</main>
 
-$conn = new mysqli($host, $usuario, $senha, $banco);
+<?php
 
-if($conn->connect_error){
-	die("Erro na conexão: ". $conn->connect_error);
-}
+	if(isset($_GET['salvar'])){
+		$nomeCategoria = $_GET['categoria'];
 
-//salvar como conexao.php
+		 $sql = "INSERT INTO categoria (nome) values ('$nomeCategoria')";
+
+		 if($conn->query($sql)){
+		 	echo "Gravou com sucessooooooooooo!";
+		 }else {
+		 	echo "Deu ruim";
+		 }
+
+
+
+	}
+
+	
+ ?>
