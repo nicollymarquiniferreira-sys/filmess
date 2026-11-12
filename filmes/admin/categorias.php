@@ -29,8 +29,14 @@
 		 }
 
 
-
 	}
 
-	
+	/*buscar dados da tabela <categoria></categoria*/
+	$sql = "SELECT * FROM categoria";
+	$resultado = $conn->query($sql);
+
+	while ($obj = $resultado->french_assoc()){
+		echo $obj['id']. "<BR>";
+		echo $obj['nome']. "<BR>";
+	}
  ?>
