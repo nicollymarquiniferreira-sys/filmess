@@ -10,13 +10,25 @@
 <main id="categoria">
 	<form method="get">
 		<h2>Categorias</h2>
-		<input type="text" name="categoria" placeholder="Nome Categoria...">
+
+		<?php
+		if(isset($_GET['editar']) and $_GET['editar'] != NULL){
+			$id_categoria = $_GET['editar'];
+			$sql = "SELECT * FROM categoria WHERE id = $id_categoria";
+
+			$resultado = $conn->query($sql);
+			$obj = $resultado->fetch_assoc();
+		}
+		?>
+
+
+	<input type="text" name="categoria" placeholder="Nome Categoria..." value="<?php echo $obj['nome'] ?>">
 		<button name="salvar">Salvar</button>
 	</form>
 </main>
 
 <?php
-
+		/*Inserir dados na tabela categoria*/
 	if(isset($_GET['salvar'])){
 		$nomeCategoria = $_GET['categoria'];
 
@@ -27,16 +39,22 @@
 		 }else {
 		 	echo "Deu ruim";
 		 }
-
-
 	}
 
-	/*buscar dados da tabela <categoria></categoria*/
+	/*Buscar dados da tabela categoria*/
 	$sql = "SELECT * FROM categoria";
 	$resultado = $conn->query($sql);
 
-	while ($obj = $resultado->french_assoc()){
-		echo $obj['id']. "<BR>";
-		echo $obj['nome']. "<BR>";
+	while ($obj = $resultado->fetch_assoc()) {
+		echo $obj['id']." - ".$obj['nome'].
+		"<a href='?editar=".$obj['id']."'>Editar</a><br>";
+
 	}
+	
+	/*Editar uma categoria*/
+	if(isset($_GET['editar'])){
+		echo "entrou, lá ele";
+	}
+
+
  ?>
